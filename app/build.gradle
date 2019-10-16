@@ -1,8 +1,29 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
+
+
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.triplet.gradle:play-publisher:2.2.1'
+    }
+}
+
+plugins {
+    id 'com.android.application'
+    id 'com.github.triplet.play' version '2.2.1'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+
+}
+
 
 android {
     compileSdkVersion 29
@@ -11,16 +32,42 @@ android {
         applicationId "com.chicken.kabab"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file("chicken_kabab.jks")
+            storePassword '#Rocks098'
+            keyAlias 'subho'
+            keyPassword '#Rocks098'
         }
     }
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+play {
+    // see: https://github.com/Triple-T/gradle-play-publisher
+    serviceAccountCredentials = file('actual-chicken-kabab-key.json')
+    track = "production"
+    resolutionStrategy = "auto"
 }
 
 dependencies {
