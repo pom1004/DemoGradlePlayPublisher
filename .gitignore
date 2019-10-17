@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 /gradle/
+/.idea/.name
+/.idea/codeStyles/codeStyleConfig.xml
+/app/src/androidTest/java/com/chicken/kabab/ExampleInstrumentedTest.kt
+/app/src/test/java/com/chicken/kabab/ExampleUnitTest.kt
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/codeStyles/Project.xml
+/.idea/runConfigurations.xml
+/.idea/vcs.xml

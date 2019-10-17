@@ -6,7 +6,7 @@
 
 
 
-buildscript {
+/*buildscript {
 
     repositories {
         mavenCentral()
@@ -14,11 +14,11 @@ buildscript {
     dependencies {
         classpath 'com.github.triplet.gradle:play-publisher:2.2.1'
     }
-}
+}*/
 
 plugins {
     id 'com.android.application'
-    id 'com.github.triplet.play' version '2.2.1'
+    id("com.github.triplet.play") version "2.4.2"
     id 'kotlin-android'
     id 'kotlin-android-extensions'
 
@@ -49,6 +49,7 @@ android {
     buildTypes {
         release {
             zipAlignEnabled true
+            debuggable false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -61,12 +62,18 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 play {
     // see: https://github.com/Triple-T/gradle-play-publisher
-    serviceAccountCredentials = file('actual-chicken-kabab-key.json')
-    track = "production"
+    serviceAccountCredentials = file("actual-chicken-kabab-key.json")
+    promoteTrack = "alpha"
     resolutionStrategy = "auto"
 }
 
